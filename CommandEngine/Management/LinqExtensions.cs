@@ -2,6 +2,7 @@
 using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Linq;
+using System.Numerics;
 using System.Reflection.Metadata.Ecma335;
 using System.Text;
 using System.Threading.Tasks;
@@ -126,6 +127,142 @@ namespace CommandEngine
                 }
             firstItem = default(T);
             return false;
+        }
+
+        public static T Least<T>(this T[] array) where T : IComparable<T>
+        {
+            if (!array.Any())
+                return default;
+
+            T smallest = array[0];
+            for (int i = 1; i < array.Length; ++i)
+                if (array[i].CompareTo(smallest) < 0)
+                    smallest = array[i];
+            return smallest;
+        }
+        public static T Least<T>(this IList<T> list) where T:IComparable<T>
+        {
+            if (!list.Any())
+                return default;
+
+            T smallest = list[0];
+            for(int i = 1; i < list.Count; ++i)
+                if (list[i].CompareTo(smallest) < 0)
+                    smallest = list[i];
+            return smallest;
+        }
+        public static T Least<T>(this IEnumerable<T> enumerable) where T : IComparable<T>
+        {
+            if (!enumerable.Any())
+                return default;
+
+            T smallest = enumerable.First();
+            foreach (var item in enumerable)
+                if (item.CompareTo(smallest) < 0)
+                    smallest = item;
+            return smallest;
+        }
+
+        public static T Least<T>(this T[] array, Comparison<T> c)
+        {
+            if (!array.Any())
+                return default;
+
+            T smallest = array[0];
+            for (int i = 1; i < array.Length; ++i)
+                if (c.Invoke(array[i], smallest) < 0)
+                    smallest = array[i];
+            return smallest;
+        }
+        public static T Least<T>(this IList<T> list, Comparison<T> c)
+        {
+            if (!list.Any())
+                return default;
+
+            T smallest = list[0];
+            for (int i = 1; i < list.Count; ++i)
+                if (c.Invoke(list[i], smallest) < 0)
+                    smallest = list[i];
+            return smallest;
+        }
+        public static T Least<T>(this IEnumerable<T> enumerable, Comparison<T> c)
+        {
+            if (!enumerable.Any())
+                return default;
+
+            T smallest = enumerable.First();
+            foreach (var item in enumerable)
+                if (c.Invoke(item, smallest) < 0)
+                    smallest = item;
+            return smallest;
+        }
+
+        public static T Greatest<T>(this T[] array) where T : IComparable<T>
+        {
+            if (!array.Any())
+                return default;
+
+            T biggest = array[0];
+            for (int i = 1; i < array.Length; ++i)
+                if (array[i].CompareTo(biggest) > 0)
+                    biggest = array[i];
+            return biggest;
+        }
+        public static T Greatest<T>(this IList<T> list) where T : IComparable<T>
+        {
+            if (!list.Any())
+                return default;
+
+            T biggest = list[0];
+            for (int i = 1; i < list.Count; ++i)
+                if (list[i].CompareTo(biggest) > 0)
+                    biggest = list[i];
+            return biggest;
+        }
+        public static T Greatest<T>(this IEnumerable<T> enumerable) where T : IComparable<T>
+        {
+            if (!enumerable.Any())
+                return default;
+
+            T biggest = enumerable.First();
+            foreach (var item in enumerable)
+                if (item.CompareTo(biggest) > 0)
+                    biggest = item;
+            return biggest;
+        }
+
+        public static T Greatest<T>(this T[] array, Comparison<T> c)
+        {
+            if (!array.Any())
+                return default;
+
+            T biggest = array[0];
+            for (int i = 1; i < array.Length; ++i)
+                if (c.Invoke(array[i], biggest) > 0)
+                    biggest = array[i];
+            return biggest;
+        }
+        public static T Greatest<T>(this IList<T> list, Comparison<T> c)
+        {
+            if (!list.Any())
+                return default;
+
+            T biggest = list[0];
+            for (int i = 1; i < list.Count; ++i)
+                if (c.Invoke(list[i], biggest) > 0)
+                    biggest = list[i];
+            return biggest;
+        }
+        public static T Greatest<T>(this IEnumerable<T> enumerable, Comparison<T> c)
+        {
+            if (!enumerable.Any())
+                return default;
+
+            T biggest = enumerable.First();
+            foreach (var item in enumerable)
+                if (c.Invoke(item, biggest) > 0)
+                    biggest = item;
+            return biggest;
         }
 
         /// <summary>Create a string with a <paramref name="seperator"/> between the items./// </summary>
