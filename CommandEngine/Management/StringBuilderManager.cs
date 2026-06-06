@@ -143,6 +143,10 @@ namespace CommandEngine
         {
             Builder.Append(startString);
         }
+        public ManagedColorBuilder(string key, string startString, string tabString) : this(key, startString)
+        {
+            Builder.TabString = tabString;
+        }
         public ManagedColorBuilder(string key, string startString, ConsoleColor startColor) : this(key, startString)
         {
             Builder.SetColor(startColor);

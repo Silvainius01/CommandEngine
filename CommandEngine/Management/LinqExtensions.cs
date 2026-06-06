@@ -1,11 +1,7 @@
 ﻿using System;
 using System.Collections.Concurrent;
 using System.Collections.Generic;
-using System.Linq;
-using System.Numerics;
-using System.Reflection.Metadata.Ecma335;
 using System.Text;
-using System.Threading.Tasks;
 
 namespace CommandEngine
 {
@@ -41,6 +37,29 @@ namespace CommandEngine
         public static T RandomItem<T>(this IList<T> list) => list[CommandEngine.Random.NextInt(list.Count)];
         public static T RandomItem<T>(this IEnumerable<T> enumerable) => enumerable.ElementAt(CommandEngine.Random.NextInt(enumerable.Count()));
         public static T RandomItem<T>(this IEnumerable<T> enumerabe, Func<T, bool> predicate) => enumerabe.Where(predicate).RandomItem();
+
+        public static void Shuffle<T>(this T[] array)
+        {
+            int i = array.Length;
+            while (i > 1)
+            {
+                int r = CommandEngine.Random.NextInt(i--);
+                T value = array[r];
+                array[r] = array[i];
+                array[i] = value;
+            }
+        }
+        public static void Shuffle<T>(this IList<T> list)
+        {
+            int i = list.Count;
+            while (i > 1)
+            {
+                int r = CommandEngine.Random.NextInt(i--);
+                T value = list[r];
+                list[r] = list[i];
+                list[i] = value;
+            }
+        }
 
         public static void AddRange<TKey, TValue>(this IDictionary<TKey, TValue> dict, IEnumerable<TKey> keys, TValue value = default(TValue))
         {
