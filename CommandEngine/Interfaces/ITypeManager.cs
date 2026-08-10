@@ -23,6 +23,7 @@ namespace CommandEngine.Interfaces
     {
         static TManager _instance = new TManager();
 
+        public static bool IsLoaded { get => _IsLoaded; }
         protected static bool _IsLoaded { get; private set; } = false;
         static bool ITypeManager<TData>.IsLoaded
         {
