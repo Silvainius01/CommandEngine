@@ -91,7 +91,7 @@ namespace CommandEngine.Interfaces
                 string dir = _DataPath.Substring(0, _DataPath.Length - fileName.Length);
 
                 if (!Directory.Exists(dir))
-                    Directory.CreateDirectory(_DataPath);
+                    Directory.CreateDirectory(dir);
             }
 
             using StreamWriter writer = new StreamWriter(_DataPath);
